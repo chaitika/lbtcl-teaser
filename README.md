@@ -81,7 +81,7 @@ Zero. On the real network your node would be talking to dozens of peers. Here,
 Create a wallet:
 
 ```bash
-bitcoin-cli createwallet "cli-wallet"
+bitcoin-cli -named createwallet wallet_name="cli-wallet" load_on_startup=true
 ```
 
 ```json
@@ -89,6 +89,10 @@ bitcoin-cli createwallet "cli-wallet"
   "name": "cli-wallet"
 }
 ```
+
+> 💡 `load_on_startup=true` tells your node to reload this wallet every time it
+> starts. Without it, a restarted node comes back with **no wallet loaded** and
+> wallet commands fail — another thing your phone wallet quietly handles for you.
 
 Now generate an address to receive coins:
 
@@ -367,7 +371,12 @@ unstick you.
   TA (this shouldn't happen in the Codespace — the fee setting is pre-configured).
 - **Lost your address variable** (e.g. you opened a new terminal) → just set it
   again: `ADDR=$(bitcoin-cli getnewaddress)`.
+- **`No wallet is loaded` (`code: -18`)** → your node restarted and didn't
+  reload the wallet. Bring it back with `bitcoin-cli loadwallet "cli-wallet"`.
+  (If you created it with the Part 2 command, `load_on_startup=true` prevents
+  this.)
 - **Want a totally fresh start?** Run `bitcoin-cli stop`, wait a few seconds,
-  then `start-node`. (Your chain is preserved. To wipe it entirely, ask a TA.)
+  then `start-node`. (Your chain and wallet are preserved. To wipe everything,
+  ask a TA.)
 
 </details>
