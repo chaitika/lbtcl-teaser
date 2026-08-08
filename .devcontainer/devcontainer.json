@@ -1,0 +1,13 @@
+{
+  "name": "LBTCL Teaser — Bitcoin Core (regtest)",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "onCreateCommand": "bash .devcontainer/setup.sh",
+  "postStartCommand": "start-node",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "workbench.startupEditor": "readme"
+      }
+    }
+  }
+}

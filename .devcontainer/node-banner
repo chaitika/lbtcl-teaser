@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Printed at the top of every new terminal (hooked into ~/.bashrc by setup.sh).
+
+if bitcoin-cli getblockchaininfo >/dev/null 2>&1; then
+  STATUS="✅ running"
+else
+  STATUS="❌ not running — type start-node"
+fi
+
+cat <<EOF
+────────────────────────────────────────────────────────────
+  🟠  LBTCL Teaser — your own private Bitcoin (regtest)
+────────────────────────────────────────────────────────────
+   Node status : ${STATUS}
+
+   First command:  bitcoin-cli getblockchaininfo
+   Cheat sheet:    CHEATSHEET.md
+EOF

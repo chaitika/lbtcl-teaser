@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Start the regtest bitcoind if it isn't already running, and wait for RPC.
+
+if bitcoin-cli getblockchaininfo >/dev/null 2>&1; then
+  echo "✅ Node is already running."
+  exit 0
+fi
+
+bitcoind -daemon >/dev/null
+
+for _ in $(seq 1 30); do
+  if bitcoin-cli getblockchaininfo >/dev/null 2>&1; then
+    echo "✅ Node started."
+    exit 0
+  fi
+  sleep 1
+done
+
+echo "❌ Node failed to start — check ~/.bitcoin/regtest/debug.log or ask a TA." >&2
+exit 1
